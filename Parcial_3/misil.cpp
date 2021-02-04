@@ -1,22 +1,5 @@
 #include "misil.h"
-
-//Constructores
-
-Misil::Misil()
-{
-
-}
-
-Misil::Misil(double x, double y, double v, double a)
-{
-    posx=x;
-    posy=y;
-    vel=v;
-    ang=a;
-    setPos(posx,-posy);
-}
-
-//Metodos
+#include <QGraphicsScene>
 
 double Misil::getPosx() const
 {
@@ -54,7 +37,19 @@ void Misil::CalcularVelocidad()
     vel=sqrt(velx*velx+vely*vely);
 }
 
+Misil::Misil()
+{
 
+}
+
+Misil::Misil(double x, double y, double v, double a)
+{
+    posx=x;
+    posy=y;
+    vel=v;
+    ang=a;
+    setPos(posx,-posy);
+}
 
 QRectF Misil::boundingRect() const
 {
@@ -63,8 +58,6 @@ QRectF Misil::boundingRect() const
 
 void Misil::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPixmap pixmap(":/Imagen/bola.png");
+    QPixmap pixmap(":/bola.png");
     painter->drawPixmap(-r,-r,2*r,2*r,pixmap);
-   // painter->setBrush(Qt::cyan);
-    //painter->drawEllipse(boundingRect());
 }
