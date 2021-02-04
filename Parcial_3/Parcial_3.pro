@@ -16,11 +16,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    canion.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    misil.cpp
 
 HEADERS += \
-    mainwindow.h
+    canion.h \
+    mainwindow.h \
+    misil.h
 
 FORMS += \
     mainwindow.ui
