@@ -20,25 +20,54 @@ void Canion::setPosy(double value)
     posy = value;
 }
 
-Canion::Canion()
+int Canion::getDistancia() const
 {
-
+    return distancia;
 }
 
-Canion::Canion(double posx_, double posy_)
+void Canion::setDistancia(int value)
+{
+    distancia = value;
+}
+
+void Canion::obtenerDistancia(int distancia_)
+{
+    distancia = abs(distancia - distancia_);
+}
+
+Canion::Canion(double posx_, double posy_, int figura, QObject *parent) : QObject(parent)
 {
     posx = posx_;
     posy = posy_;
     setPos(posx,-posy);
+
+    //dimensiones de cada imagen
+    ancho = 30;
+    alto = 500;
+
+    filas = 0;
+    columnas = 0;
+
+    switch(figura)
+    {
+        case 1: pixmap = new QPixmap(":/canionO.png");
+        break;
+
+        case 2: pixmap = new QPixmap(":/canionD.png");
+        break;
+
+        default: pixmap = new QPixmap(":/canionD.png");
+    }
+
 }
+
 
 QRectF Canion::boundingRect() const
 {
-    return QRectF(-r,-r,2*r,2*r);
+    return QRectF(-ancho/2,-alto/2,ancho,alto);
 }
 
 void Canion::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPixmap pixmap(":/Imagen/bola.png");
-    painter->drawPixmap(-r,-r,2*r,2*r,pixmap);
+    painter->drawPixmap(-ancho/2,-alto/2,*pixmap,columnas,0,ancho,alto);
 }

@@ -15,7 +15,7 @@ class Misil: public QGraphicsItem
     double vely;
     const double delta=0.020;
     const double g=9.8;
-    int r=15;
+    int r; //distancia entre caniones eje x
 public:
     Misil();
     Misil(double x, double y,double v, double a);

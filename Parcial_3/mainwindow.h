@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QList>
 #include <misil.h>
 #include <canion.h>
@@ -30,6 +31,8 @@ private:
     QGraphicsScene *escena;
     QTimer *timer;
     Misil *cuerpo;
+    Canion *canion1;
+    Canion *canion2;
     QList<Misil*> Particulas;
 };
 #endif // MAINWINDOW_H

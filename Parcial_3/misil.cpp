@@ -24,17 +24,17 @@ void Misil::setPosy(double value)
 void Misil::ActualizarPosicion()
 {
     CalcularVelocidad();
-    posx=posx+velx*delta;
-    posy=posy+vely*delta-(0.5*g*delta*delta);
+    posx = posx+velx*delta;
+    posy = posy+vely*delta-(0.5*g*delta*delta);
     setPos(posx,-posy);
 }
 
 void Misil::CalcularVelocidad()
 {
-    velx=vel*cos(ang);
-    vely=vel*sin(ang)-g*delta;
-    ang=atan2(vely,velx);
-    vel=sqrt(velx*velx+vely*vely);
+    velx = vel*cos(ang);
+    vely = vel*sin(ang)-g*delta;
+    ang  = atan2(vely,velx);
+    vel  = sqrt(velx*velx+vely*vely);
 }
 
 Misil::Misil()
@@ -44,10 +44,10 @@ Misil::Misil()
 
 Misil::Misil(double x, double y, double v, double a)
 {
-    posx=x;
-    posy=y;
-    vel=v;
-    ang=a;
+    posx = x;
+    posy = y;
+    vel  = v;
+    ang  = a;
     setPos(posx,-posy);
 }
 
