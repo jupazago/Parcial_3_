@@ -36,7 +36,7 @@ void MainWindow::on_btnSimular_clicked()
 
         if(yO < 0 || yO > 450) throw 1; //si el ofensivo esta muy alto
         if(xD < 200 || xD > 900) throw 2;//si el defensivo esta muy cerca o muy lejos
-        if(yD < 0 || yD > 450) throw 3; //si el defensivo esta muy alto
+        if(yD < 0 || yD > 300) throw 3; //si el defensivo esta muy alto
 
         //ofensivo
         canion1 = new Canion(xO, yO, 1);
@@ -49,6 +49,13 @@ void MainWindow::on_btnSimular_clicked()
         //damos valor a la distancia entre caniones
         canion1->obtenerDistancia(canion2->getPosx());
         canion2->obtenerDistancia(canion1->getPosx());
+
+        /*  Vamos a calcular 3 disparos ofensivos
+         *  que afecten la integridad del canion defensivo
+         *  luego los simulamos
+         */
+
+        Inicio_de_ataques();
     }
     catch (int error) {
         if(error == 1){
@@ -83,3 +90,59 @@ void MainWindow::Mover()
     for(it=Particulas.begin();it!=Particulas.end();it++)
        (*it)->ActualizarPosicion();
 }
+
+void MainWindow::Inicio_de_ataques()
+{
+
+    //Análisis de ataques comprometedores
+
+    double velocidadx, velocidady, radio, posx, posy;
+
+    for (int angulos = 1; angulos < 90; angulos++) {
+        for (int velocidades = 40; velocidades < 125; velocidades += 5) {
+
+
+            velocidadx = velocidades*cos(angulos*pi/180);  //Vellocidad X
+            velocidady = velocidades*sin(angulos*pi/180);  //Vellocidad Y
+            radio = 0.05*(canion2->getDistancia());        //0.05*d __ distancia entre caniones
+
+
+            for (float tiempos=0; tiempos <15; tiempos += 0.1) {
+
+                posx = velocidadx*tiempos;
+                posy = canion1->getPosy() + velocidady*tiempos - (0.5*9.81*tiempos*tiempos);
+
+                if(sqrt(pow((canion2->getPosx() - posx),2) + pow((canion2->getPosy() - posy),2)) < radio){
+                    if(posy<0) posy = 0;
+                    ofensivos_efectivos++;
+
+                    angulos += 5;
+                    velocidades += 10;
+
+                    if(ofensivos_efectivos == 3){
+                        QMessageBox::information(this, "Información", "3 disparos efectivos");
+                        break;
+                    }
+                    /*
+
+                    //Creamos la reaccion DEFENSIVA
+                    if(tiempos>2){
+                        //3 disparos defensivos
+                        DisparoDefensivo(OFENSIVO1, DEFENSIVO1, t);
+                    }
+                    break;
+                    */
+                }
+            }
+            if(ofensivos_efectivos == 3) break;
+        }
+        if(ofensivos_efectivos == 3) break;
+    }
+
+   ofensivos_efectivos = 0;
+}
+
+
+
+
+
