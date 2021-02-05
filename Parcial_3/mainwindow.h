@@ -25,18 +25,22 @@ public:
 private slots:
     void on_btnSimular_clicked();
     void Mover();
-    void Inicio_de_ataques();
+    //void Inicio_de_ataques();
+
+    void DisparoOfensivo();
+    void DisparoDefensivo(float Limite_tiempo);
+    void DisparoNeutral(float Limite_tiempo);
 
 private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *escena;
     QTimer *timer;
-    Misil *cuerpo;
+    Misil *OFENSIVO;
+    Misil *DEFENSIVO;
     Canion *canion1;
     Canion *canion2;
     QList<Misil*> Particulas;
 
-    int ofensivos_efectivos = 0;
 };
 #endif // MAINWINDOW_H

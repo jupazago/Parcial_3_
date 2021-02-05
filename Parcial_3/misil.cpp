@@ -42,6 +42,62 @@ Misil::Misil()
 
 }
 
+double Misil::getVel() const
+{
+    return vel;
+}
+
+void Misil::setVel(double value)
+{
+    vel = value;
+}
+
+double Misil::getAng() const
+{
+    return ang;
+}
+
+void Misil::setAng(double value)
+{
+    ang = value;
+}
+
+double Misil::getVelx() const
+{
+    return velx;
+}
+
+void Misil::setVelx(double value)
+{
+    velx = value;
+}
+
+double Misil::getVely() const
+{
+    return vely;
+}
+
+void Misil::setVely(double value)
+{
+    vely = value;
+}
+
+int Misil::getR() const
+{
+    return r;
+}
+
+void Misil::setR(int value)
+{
+    r = value;
+}
+
+Misil::Misil(double x, double y)
+{
+    posx = x;
+    posy = y;
+}
+
 Misil::Misil(double x, double y, double v, double a)
 {
     posx = x;
@@ -50,6 +106,7 @@ Misil::Misil(double x, double y, double v, double a)
     ang  = a;
     setPos(posx,-posy);
 }
+
 
 QRectF Misil::boundingRect() const
 {

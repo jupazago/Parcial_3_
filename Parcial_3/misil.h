@@ -15,10 +15,10 @@ class Misil: public QGraphicsItem
     double vely;
     const double delta=0.020;
     const double g=9.8;
-    int r; //distancia entre caniones eje x
+    int r;
 public:
-    Misil();
-    Misil(double x, double y,double v, double a);
+    Misil(double x, double y); // solo para obtener datos
+    Misil(double x, double y, double v, double a);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = Q_NULLPTR);
@@ -30,6 +30,17 @@ public:
 
     void ActualizarPosicion();
     void CalcularVelocidad();
+
+    double getVel() const;
+    void setVel(double value);
+    double getAng() const;
+    void setAng(double value);
+    double getVelx() const;
+    void setVelx(double value);
+    double getVely() const;
+    void setVely(double value);
+    int getR() const;
+    void setR(int value);
 };
 
 #endif // MISIL_H
