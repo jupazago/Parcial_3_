@@ -5,7 +5,10 @@
 #include <QTimer>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QVector>
+#include <QDebug>
 #include <QList>
+
 #include <misil.h>
 #include <canion.h>
 #define pi 3.141617
@@ -30,9 +33,15 @@ private slots:
     void DisparoOfensivo();
     void DisparoDefensivo(float Limite_tiempo);
     void DisparoNeutral(float Limite_tiempo);
+    void imprimirVectores();
 
 private:
     Ui::MainWindow *ui;
+
+    struct Datos{
+        double angulo;
+        double velocidad;
+    };
 
     QGraphicsScene *escena;
     QTimer *timer;
@@ -40,7 +49,10 @@ private:
     Misil *DEFENSIVO;
     Canion *canion1;
     Canion *canion2;
-    QList<Misil*> Particulas;
+
+    QVector<Datos> ofensivos3;
+    QVector<Datos> defensivos9;
+    QVector<Datos> neutrales27;
 
 };
 #endif // MAINWINDOW_H

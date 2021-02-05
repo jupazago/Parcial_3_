@@ -56,6 +56,9 @@ void MainWindow::on_btnSimular_clicked()
          */
 
         //Inicio_de_ataques();
+        DisparoOfensivo();
+
+        imprimirVectores();
     }
     catch (int error) {
         if(error == 1){
@@ -85,10 +88,22 @@ void MainWindow::on_btnSimular_clicked()
 }
 
 void MainWindow::Mover()
-{
+{/*
     QList<Misil*>::iterator it;
     for(it=Particulas.begin();it!=Particulas.end();it++)
        (*it)->ActualizarPosicion();
+       */
+}
+
+void MainWindow::imprimirVectores()
+{
+    for (int i=0; i<3; i++) {
+        for (int i=0; i<3; i++) {
+            for (int i=0; i<3; i++) {
+
+            }
+        }
+    }
 }
 
 /*
@@ -143,11 +158,15 @@ void MainWindow::Inicio_de_ataques()
 
 
 void MainWindow::DisparoOfensivo(){
+
+
+
     int flag = 0;
     float x = 0.0;
     float y = 0.0;
 
     OFENSIVO = new Misil(canion1->getPosx(), canion1->getPosy());
+    DEFENSIVO = new Misil(canion2->getPosx(), canion2->getPosy());
 
     for(int angulo = 1; angulo < 90 ; angulo++){
         OFENSIVO->setAng(angulo);//Angulo
@@ -166,6 +185,12 @@ void MainWindow::DisparoOfensivo(){
                 //distancia entre dos puntos (bala y DEFENSIVO) < radio de explosion
                 if(sqrt(pow((canion2->getPosx() - x),2)+pow((canion2->getPosy() - y),2)) < OFENSIVO->getR()){
                     if(y<0) y = 0;
+
+                    //add al vector
+                    Datos misil_cargador;
+                    misil_cargador.angulo = angulo;
+                    misil_cargador.velocidad = velocidad;
+                    ofensivos3.push_back(misil_cargador);
 
                     //Creamos la reaccion DEFENSIVA
                     if(t>2){
@@ -217,7 +242,12 @@ void MainWindow::DisparoDefensivo(float Limite_tiempo){
                 if(sqrt(pow((xo - xd),2)+pow((yo - yd),2)) <= OFENSIVO->getR()){
                     if(yd<0) yd = 0;
 
-                    //Creamos la reaccion NEUTRALIZAR
+                    Datos misil_cargador;
+                    misil_cargador.angulo = angulo;
+                    misil_cargador.velocidad = velocidad;
+                    defensivos9.push_back(misil_cargador);
+
+                     //Creamos la reaccion NEUTRALIZAR
                     if(t>1){
                         //3 disparos NEUTRALES
                         DisparoNeutral(t2);
@@ -264,6 +294,13 @@ void MainWindow::DisparoNeutral(float Limite_tiempo){
                 //distancia entre dos puntos (Neutralizador y DEFENSIVO) < radio de explosion
                 if(sqrt(pow((xo - xd),2)+pow((yo - yd),2)) <= OFENSIVO->getR()){
                     if(yd<0) yd = 0;
+
+                    //add vector neutral
+                    Datos misil_cargador;
+                    misil_cargador.angulo = angulo;
+                    misil_cargador.velocidad = velocidad;
+                    neutrales27.push_back(misil_cargador);
+
                     flag++;
                     angulo += 5;
                     velocidad += 10;

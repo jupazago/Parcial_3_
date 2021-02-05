@@ -37,11 +37,6 @@ void Misil::CalcularVelocidad()
     vel  = sqrt(velx*velx+vely*vely);
 }
 
-Misil::Misil()
-{
-
-}
-
 double Misil::getVel() const
 {
     return vel;
