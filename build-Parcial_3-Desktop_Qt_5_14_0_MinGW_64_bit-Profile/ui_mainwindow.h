@@ -40,6 +40,9 @@ public:
     QLabel *label_3;
     QLineEdit *LE_PosxD;
     QLabel *label_4;
+    QLabel *label_9;
+    QLabel *label_10;
+    QLabel *label_11;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -105,6 +108,15 @@ public:
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(350, 590, 47, 13));
+        label_9 = new QLabel(centralwidget);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setGeometry(QRect(550, 560, 101, 16));
+        label_10 = new QLabel(centralwidget);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setGeometry(QRect(240, 590, 101, 16));
+        label_11 = new QLabel(centralwidget);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+        label_11->setGeometry(QRect(550, 590, 101, 16));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -133,6 +145,9 @@ public:
         label_3->setText(QCoreApplication::translate("MainWindow", "Posicion x", nullptr));
         LE_PosxD->setText(QString());
         label_4->setText(QCoreApplication::translate("MainWindow", "Posicion y", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "Rango: 300 a 900", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "Rango: 0 a 450", nullptr));
+        label_11->setText(QCoreApplication::translate("MainWindow", "Rango: 0 a 300", nullptr));
     } // retranslateUi
 
 };

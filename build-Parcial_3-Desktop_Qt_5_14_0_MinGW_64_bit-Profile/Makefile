@@ -490,6 +490,7 @@ qrc_recursos.cpp: ../Parcial_3/recursos/recursos.qrc \
 		../Parcial_3/recursos/escudoO.png \
 		../Parcial_3/recursos/canionO.png \
 		../Parcial_3/recursos/bola2.png \
+		../Parcial_3/recursos/fondo.jpg \
 		../Parcial_3/recursos/bola.png \
 		../Parcial_3/recursos/escudoOO.png \
 		../Parcial_3/recursos/canionD.png

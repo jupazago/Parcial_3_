@@ -44,31 +44,37 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    //estructura que nos facilitará la caotura de los calculos
     struct Datos{
         double angulo;
         double velocidad;
     };
 
     QGraphicsScene *escena;
+
+    //timers
     QTimer *timer;
     QTimer *timer_ofe;
     QTimer *timer_defe;
     QTimer *timer_neutral;
     QTimer *timer_graficos;
-    Misil *cuerpo;
+
+    //objetos necesarios
     Canion *canion1;
     Canion *canion2;
     Misil *OFENSIVO;
     Misil *DEFENSIVO;
-    Grafica *grafico;
+
+    //listas para movimiento y graficar
     QList<Misil*> Particulas;
     QList<Grafica*> Particulas_graficadas;
 
+    //vectores de almacenamiento de estructuras
     QVector<Datos> ofensivos3;
     QVector<Datos> defensivos3;
     QVector<Datos> neutrales9;
 
-
+    //contadores auxiliares para graficar
     int contador_ofensivo = 0;
     int contador_defensivo = 0;
     int contador_neutral = 0;

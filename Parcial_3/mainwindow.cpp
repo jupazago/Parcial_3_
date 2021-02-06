@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
     escena->addRect(escena->sceneRect());
     ui->graphicsView->setScene(escena);
 
+    escena->setBackgroundBrush(QPixmap(":/fondo.jpg"));
+    ui->graphicsView->setScene(escena);
+
+    //preparamos los timer que vamos a necesitar para graficar
     timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this,SLOT(Mover()));
 
@@ -36,6 +40,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_btnSimular_clicked()
 {
     try {
+        //obtenemos los valores
+        //de cada line edit del formulario
+
         //Ofensivo
         double xO = ui->LE_PosxO->text().toDouble();
         double yO = ui->LE_PosyO->text().toDouble();
@@ -43,10 +50,13 @@ void MainWindow::on_btnSimular_clicked()
         double xD = ui->LE_PosxD->text().toDouble();
         double yD = ui->LE_PosyD->text().toDouble();
 
+        //verificamos los rangos
+        //necesitamos que se encuentren correctamente
         if(yO < 0 || yO > 450) throw 1; //si el ofensivo esta muy alto
         if(xD < 300 || xD > 900) throw 2;//si el defensivo esta muy cerca o muy lejos
         if(yD < 0 || yD > 300) throw 3; //si el defensivo esta muy alto
 
+        //los agregamos a la escena
         //ofensivo
         canion1 = new Canion(xO, yO-225, 1);
         escena->addItem(canion1);
@@ -67,10 +77,14 @@ void MainWindow::on_btnSimular_clicked()
 
         DisparoOfensivo();
 
+        //despues de almacenar los valores que necesitamos
+        //gracias a una estrcutura sencilla
+        //continuamos
 
-        //qDebug() << ofensivos3.size();
-        //qDebug() << defensivos3.size();
-        //qDebug() << neutrales9.size();
+        /*  Aqui empezamos a graficarlos
+         * a medida que se empieza atacar
+         * se tomaran reacciones
+         */
         timer_ofe->start(1);
         timer_graficos->start(333);
 
@@ -88,6 +102,8 @@ void MainWindow::on_btnSimular_clicked()
 
 void MainWindow::Mover()
 {
+    //movimiento parabolico
+    //usando en metodo de la clase misil
     QList<Misil*>::iterator it;
     for(it=Particulas.begin();it!=Particulas.end();it++)
        (*it)->ActualizarPosicion();
@@ -95,6 +111,7 @@ void MainWindow::Mover()
 
 void MainWindow::imprimirGraficos()
 {
+    //agregamos el rastro dependiendo de la ubicacion del misil
     QList<Misil*>::iterator it;
     for(it=Particulas.begin();it!=Particulas.end();it++){
         Particulas_graficadas.push_back(new Grafica((*it)->getPosx(), (*it)->getPosy(), (*it)->getR()));
@@ -104,6 +121,7 @@ void MainWindow::imprimirGraficos()
 
 void MainWindow::imprimirVectores()
 {
+    //empezamos a graficarlo
     if(Particulas_graficadas.size() > 0){
         QList<Grafica*>::iterator itt;
         for(itt=Particulas_graficadas.begin();itt!=Particulas_graficadas.end();itt++){
@@ -111,9 +129,12 @@ void MainWindow::imprimirVectores()
         }
 
     }
+    //para mayor orden los lanzamos cada 15 segundo
     if(contador_ofensivo == 0){
         timer_ofe->setInterval(15000);
     }
+
+    //aqui es donde toma forma nuestro movimiento y nuestro rastro graficado
     Particulas.push_back(new Misil(canion1->getPosx(), canion1->getPosy(), ofensivos3.at(contador_ofensivo).velocidad, (ofensivos3.at(contador_ofensivo).angulo*3.14159)/180));
     Particulas.back()->setR(canion1->getDistancia() * 0.05);
     escena->addItem(Particulas.back());
@@ -124,6 +145,7 @@ void MainWindow::imprimirVectores()
     timer_defe->start(2000);
 
     contador_ofensivo++;
+    //si terminamos de recorrerlo, detenemos el timer
     if(contador_ofensivo == 3){
         timer_ofe->stop();
         contador_ofensivo = 0;
@@ -132,7 +154,7 @@ void MainWindow::imprimirVectores()
 
 void MainWindow::imprimirVectores2()
 {
-    //lo ponemos ordenado
+    //lo ponemos ordenado y los agregamos al grafico por medio de metodos
     timer_defe->stop();
 
     Particulas.push_back(new Misil(canion2->getPosx(), canion2->getPosy(), defensivos3.at(contador_defensivo).velocidad, (defensivos3.at(contador_defensivo).angulo*3.14159)/180));
@@ -160,6 +182,9 @@ void MainWindow::imprimirVectores3()
 
 void MainWindow::DisparoOfensivo(){
 
+
+    //calculamos los podibles ataques ofensivos que atenten
+    //contra la integridad del canion defensivo
     int flag = 0;
     float x = 0.0;
     float y = 0.0;
@@ -195,7 +220,6 @@ void MainWindow::DisparoOfensivo(){
 
                     //Creamos la reaccion DEFENSIVA
                     if(t>2){
-                        //3 disparos defensivos
                         DisparoDefensivo(t);
 
                     }
@@ -217,6 +241,8 @@ void MainWindow::DisparoOfensivo(){
 
 void MainWindow::DisparoDefensivo(float Limite_tiempo){
 
+    //con el ataque ofensivo que se aproxima, pasaran 2 segundos
+    //de retraso y obtenemos valores para una defensa que será efectiva
     float xo = 0.0;
     float yo = 0.0;
     float xd = 0.0;
@@ -258,6 +284,8 @@ void MainWindow::DisparoDefensivo(float Limite_tiempo){
                     defensivos3.push_back(misil_cargador);
 
                      //Creamos la reaccion NEUTRALIZAR
+                    //usaremos 3 disparos ofensivos para neutralizar
+                    //la defensa del otro canion
                     if(t>1){
                         //3 disparos NEUTRALES
                         DisparoNeutral(t2);
@@ -279,6 +307,8 @@ void MainWindow::DisparoDefensivo(float Limite_tiempo){
 
 void MainWindow::DisparoNeutral(float Limite_tiempo){
 
+    //calculamos los disparos
+    //los llamaremos neutrales o neutralizadores
     float xo = 0.0;
     float yo = 0.0;
     float xd = 0.0;
@@ -313,6 +343,7 @@ void MainWindow::DisparoNeutral(float Limite_tiempo){
                     if(yd<0) yd = 0;
 
                     //add vector neutral
+                    //capturamos los valores
                     Datos misil_cargador;
                     misil_cargador.angulo = angulo;
                     misil_cargador.velocidad = velocidad;
