@@ -5,10 +5,7 @@
 #include <QTimer>
 #include <QMainWindow>
 #include <QMessageBox>
-#include <QVector>
-#include <QDebug>
 #include <QList>
-
 #include <misil.h>
 #include <canion.h>
 #define pi 3.141617
@@ -28,12 +25,10 @@ public:
 private slots:
     void on_btnSimular_clicked();
     void Mover();
-    //void Inicio_de_ataques();
 
     void DisparoOfensivo();
     void DisparoDefensivo(float Limite_tiempo);
     void DisparoNeutral(float Limite_tiempo);
-    void imprimirVectores();
 
 private:
     Ui::MainWindow *ui;
@@ -45,14 +40,15 @@ private:
 
     QGraphicsScene *escena;
     QTimer *timer;
-    Misil *OFENSIVO;
-    Misil *DEFENSIVO;
+    Misil *cuerpo;
     Canion *canion1;
     Canion *canion2;
+    Misil *OFENSIVO;
+    Misil *DEFENSIVO;
+    QList<Misil*> Particulas;
 
     QVector<Datos> ofensivos3;
     QVector<Datos> defensivos9;
     QVector<Datos> neutrales27;
-
 };
 #endif // MAINWINDOW_H

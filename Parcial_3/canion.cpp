@@ -40,6 +40,7 @@ Canion::Canion(double posx_, double posy_, int figura, QObject *parent) : QObjec
     posx = posx_;
     posy = posy_;
     setPos(posx,-posy);
+    posy = posy_+225;
 
     //dimensiones de cada imagen
     ancho = 30;
