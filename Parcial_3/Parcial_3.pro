@@ -17,12 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     canion.cpp \
+    grafica.cpp \
     main.cpp \
     mainwindow.cpp \
     misil.cpp
 
 HEADERS += \
     canion.h \
+    grafica.h \
     mainwindow.h \
     misil.h
 

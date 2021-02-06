@@ -22,7 +22,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer_defe,SIGNAL(timeout()),this,SLOT(imprimirVectores2()));
 
     timer_neutral = new QTimer();
-    connect(timer_defe,SIGNAL(timeout()),this,SLOT(imprimirVectores3()));
+    connect(timer_neutral,SIGNAL(timeout()),this,SLOT(imprimirVectores3()));
+
+    timer_graficos = new QTimer();
+    connect(timer_graficos,SIGNAL(timeout()),this,SLOT(imprimirGraficos()));
 }
 
 MainWindow::~MainWindow()
@@ -65,10 +68,11 @@ void MainWindow::on_btnSimular_clicked()
         DisparoOfensivo();
 
 
-        qDebug() << ofensivos3.size();
-        qDebug() << defensivos3.size();
-        qDebug() << neutrales9.size();
+        //qDebug() << ofensivos3.size();
+        //qDebug() << defensivos3.size();
+        //qDebug() << neutrales9.size();
         timer_ofe->start(1);
+        timer_graficos->start(333);
 
 
     }catch (int error) {
@@ -89,8 +93,24 @@ void MainWindow::Mover()
        (*it)->ActualizarPosicion();
 }
 
+void MainWindow::imprimirGraficos()
+{
+    QList<Misil*>::iterator it;
+    for(it=Particulas.begin();it!=Particulas.end();it++){
+        Particulas_graficadas.push_back(new Grafica((*it)->getPosx(), (*it)->getPosy(), (*it)->getR()));
+        escena->addItem(Particulas_graficadas.back());
+    }
+}
+
 void MainWindow::imprimirVectores()
 {
+    if(Particulas_graficadas.size() > 0){
+        QList<Grafica*>::iterator itt;
+        for(itt=Particulas_graficadas.begin();itt!=Particulas_graficadas.end();itt++){
+            escena->removeItem(*itt);
+        }
+
+    }
     if(contador_ofensivo == 0){
         timer_ofe->setInterval(15000);
     }
@@ -135,6 +155,8 @@ void MainWindow::imprimirVectores3()
         contador_neutral++;
     }
 }
+
+
 
 void MainWindow::DisparoOfensivo(){
 
@@ -227,7 +249,7 @@ void MainWindow::DisparoDefensivo(float Limite_tiempo){
 
                 //qDebug() << t;
                 if(sqrt(pow((xo - xd),2)+pow((yo - yd),2)) <= OFENSIVO->getR()){
-                    qDebug() << (sqrt(pow((xo - xd),2)+pow((yo - yd),2)));
+                    //qDebug() << (sqrt(pow((xo - xd),2)+pow((yo - yd),2)));
                     if(yd<0) yd = 0;
 
                     Datos misil_cargador;

@@ -9,6 +9,7 @@
 #include <QList>
 #include <misil.h>
 #include <canion.h>
+#include <grafica.h>
 #define pi 3.141617
 
 QT_BEGIN_NAMESPACE
@@ -32,6 +33,9 @@ private slots:
     void DisparoDefensivo(float Limite_tiempo);
     void DisparoNeutral(float Limite_tiempo);
 
+    //graficar
+    void imprimirGraficos();
+
     //graficaremos los valores obtenidos anteriormente
     void imprimirVectores();
     void imprimirVectores2();
@@ -50,12 +54,15 @@ private:
     QTimer *timer_ofe;
     QTimer *timer_defe;
     QTimer *timer_neutral;
+    QTimer *timer_graficos;
     Misil *cuerpo;
     Canion *canion1;
     Canion *canion2;
     Misil *OFENSIVO;
     Misil *DEFENSIVO;
+    Grafica *grafico;
     QList<Misil*> Particulas;
+    QList<Grafica*> Particulas_graficadas;
 
     QVector<Datos> ofensivos3;
     QVector<Datos> defensivos3;
