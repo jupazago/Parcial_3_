@@ -32,7 +32,7 @@ void Canion::setDistancia(int value)
 
 void Canion::obtenerDistancia(int distancia_)
 {
-    distancia = abs(distancia - distancia_);
+    distancia = distancia_;
 }
 
 Canion::Canion(double posx_, double posy_, int figura, QObject *parent) : QObject(parent)

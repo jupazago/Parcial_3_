@@ -13,7 +13,7 @@ class Misil: public QGraphicsItem
     double ang;
     double velx;
     double vely;
-    const double delta=0.020;
+    const double delta=0.005;
     const double g=9.8;
     int r=15;
 public:

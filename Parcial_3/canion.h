@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QPixmap>
+#include <QDebug>
 #include <QObject>
 
 
